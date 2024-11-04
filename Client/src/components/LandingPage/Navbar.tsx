@@ -17,7 +17,7 @@ import { useTheme } from "../theme-provider";
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isActive, setIsActive] = useState("Home");
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(true);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const navLinks = [
     { name: "Home", href: "#" },
@@ -79,9 +79,13 @@ const Navbar = () => {
                   <Link to={"/profile"}>Profile</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link to={"/settings"}>Settings</Link>
+                  <Link to={"/settings/profile"}>Settings</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>LogOut</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to={"/"} onClick={() => setIsSignedIn(false)}>
+                    LogOut
+                  </Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
