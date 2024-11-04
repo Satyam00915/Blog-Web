@@ -1,10 +1,23 @@
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ModeToggle } from "../mode-toggle";
+import { Avatar, AvatarFallback } from "../ui/avatar";
+import { AvatarImage } from "@radix-ui/react-avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { useTheme } from "../theme-provider";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isActive, setIsActive] = useState("Home");
+  const [isSignedIn, setIsSignedIn] = useState(false);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const navLinks = [
     { name: "Home", href: "#" },
@@ -13,6 +26,7 @@ const Navbar = () => {
     { name: "Tutorials", href: "#" },
     { name: "Newsletter", href: "#" },
   ];
+  const { theme } = useTheme();
   const navigate = useNavigate();
   return (
     <>
@@ -21,7 +35,13 @@ const Navbar = () => {
           <div className="mr-2 size-14 rounded-full">
             <img src="/logo.png" alt="Logo" />
           </div>
-          <span className="text-xl text-white font-bold">Blog Vista</span>
+          <span
+            className={`text-xl font-bold ${
+              theme === "dark" ? "text-white" : "text-black"
+            }`}
+          >
+            Blog Vista
+          </span>
         </div>
         <div className="hidden space-x-4 md:flex">
           {navLinks.map((link) => (
@@ -33,7 +53,9 @@ const Navbar = () => {
               }}
               className={
                 link.name === isActive
-                  ? "font-medium text-white"
+                  ? `font-medium ${
+                      theme === "dark" ? "text-white" : "text-black"
+                    }`
                   : "text-gray-500 dark:text-gray-400"
               }
             >
@@ -42,12 +64,35 @@ const Navbar = () => {
           ))}
         </div>
         <div className="flex items-center space-x-4">
-          <button
-            onClick={() => navigate("/auth")}
-            className="hidden rounded-full bg-orange-500 px-4 py-2 font-medium text-white md:block"
-          >
-            Sign Up
-          </button>
+          {isSignedIn ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Avatar className="size-10">
+                  <AvatarImage src="" />
+                  <AvatarFallback>U</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>User Profile</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <Link to={"/profile"}>Profile</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to={"/settings"}>Settings</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>LogOut</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <button
+              onClick={() => navigate("/auth")}
+              className="hidden rounded-full bg-orange-500 px-4 py-2 font-medium text-white md:block"
+            >
+              Sign Up
+            </button>
+          )}
+          <ModeToggle />
           <button onClick={toggleMobileMenu} className="md:hidden">
             <Menu className="size-6" />
           </button>
