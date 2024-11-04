@@ -2,9 +2,18 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { supabase } from "../Supabase/Supabase";
+import { useUserStore } from "../store/User";
 
 const SignIn = () => {
   const [isSignIn, setIsSignIn] = useState(false);
+  const { FirstName, Email, Password, SetEmail, SetFirstName, SetPassword } =
+    useUserStore();
+  const handleSignUp = async () => {
+    console.log(FirstName, Email, Password);
+  };
+  const handleSignIn = async () => {
+    console.log(Email, Password);
+  };
 
   return (
     <section className="bg-white pb-28 overflow-y-hidden text-gray-900 transition-colors duration-300 dark:bg-black  dark:text-white">
@@ -74,6 +83,7 @@ const SignIn = () => {
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-600 dark:text-gray-100 dark:placeholder:text-gray-400/50 dark:focus:ring-neutral-800 dark:focus:ring-offset-neutral-800"
                       type="text"
                       placeholder="Dau lipa"
+                      onChange={(e) => SetFirstName(e.currentTarget.value)}
                     />
                   </div>
                 </div>
@@ -91,6 +101,7 @@ const SignIn = () => {
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-600 dark:text-gray-100 dark:placeholder:text-gray-400/50 dark:focus:ring-neutral-800 dark:focus:ring-offset-neutral-800"
                     type="email"
                     placeholder="Email"
+                    onChange={(e) => SetEmail(e.currentTarget.value)}
                   />
                 </div>
               </div>
@@ -107,6 +118,7 @@ const SignIn = () => {
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-600 dark:text-gray-100 dark:placeholder:text-gray-400/50 dark:focus:ring-neutral-800 dark:focus:ring-offset-neutral-800"
                     type="password"
                     placeholder="Password"
+                    onChange={(e) => SetPassword(e.currentTarget.value)}
                   />
                 </div>
               </div>
@@ -114,6 +126,7 @@ const SignIn = () => {
                 <button
                   type="button"
                   className="flex w-full items-center justify-center rounded-md bg-gradient-to-t from-blue-500 to-sky-500 px-3 py-2.5 font-semibold text-white transition-all duration-200 focus:outline-none"
+                  onClick={isSignIn ? handleSignIn : handleSignUp}
                 >
                   Get started <ArrowRight className="ml-2" size={16} />
                 </button>
