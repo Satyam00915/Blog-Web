@@ -1,5 +1,3 @@
-//NOT BEING USED BECAUSE OF SHADCN FORM MANAGEMENT
-
 import { profileSchema } from "@/Schema/zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
