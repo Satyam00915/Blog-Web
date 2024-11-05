@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
-import { ModeToggle } from "../mode-toggle";
+import { ModeToggle } from "../components/mode-toggle";
 
 const Settings = () => {
   const navigate = useNavigate();

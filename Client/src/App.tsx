@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Landing from "./Pages/Landing";
 import SignIn from "./Pages/Auth";
 import Profile from "./components/User/Profile";
-import Settings from "./components/User/Settings";
+import Settings from "./Pages/Settings";
 import Account from "./components/User/Account";
 import Password from "./components/User/Password";
 import ProfBox1 from "./components/User/ProfBox1";
