@@ -76,7 +76,7 @@ const Navbar = () => {
                 <DropdownMenuLabel>User Profile</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <Link to={"/profile"}>Profile</Link>
+                  <Link to={"/settings/profile"}>Profile</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link to={"/settings/profile"}>Settings</Link>

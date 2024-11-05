@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 import { ModeToggle } from "../mode-toggle";
 
@@ -19,12 +19,12 @@ const Settings = () => {
       path: "password",
     },
     {
-      label: "Subscribed Blogs",
-      path: "subscribed",
+      label: "Saved Blogs",
+      path: "saved",
     },
   ];
-
-  const [activeOption, setActiveOption] = useState(settingOptions[0].label);
+  const activePath = useLocation().pathname.split("/")[2];
+  const [activeOption, setActiveOption] = useState(activePath);
   return (
     <div className="dark:bg-black bg-white h-full w-full pt-10 pl-10 pb-10">
       <div className=" flex justify-between">
@@ -47,12 +47,12 @@ const Settings = () => {
             return (
               <div
                 className={`text-md font-semibold text-black dark:text-white px-3 py-2 rounded-lg dark:hover:bg-white/20 hover:bg-black/20 hover:bg-opacity-50 cursor-pointer ${
-                  activeOption === option.label
-                    ? "bg-white/20 bg-opacity-50"
+                  activeOption === option.path
+                    ? "dark:bg-white/20 bg-black/20 bg-opacity-50"
                     : ""
                 }`}
                 onClick={() => {
-                  setActiveOption(option.label);
+                  setActiveOption(option.path);
                   navigate(option.path);
                 }}
               >
@@ -62,7 +62,7 @@ const Settings = () => {
           })}
         </div>
         <div className="divider divider-neutral dark:divider divider-horizontal"></div>
-        <div className="h-screen w-4/5">
+        <div className="h-full w-4/5">
           <Outlet />
           {/* <ProfBox /> */}
         </div>
