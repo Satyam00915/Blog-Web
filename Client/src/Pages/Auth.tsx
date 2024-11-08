@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { supabase } from "../Supabase/Supabase";
 import { useUserStore } from "../store/User";
 
 const SignIn = () => {
@@ -146,9 +145,7 @@ const SignIn = () => {
           <div>
             <button
               type="button"
-              onClick={async () => {
-                await supabase.auth.signInWithOAuth({ provider: "google" });
-              }}
+              onClick={() => {}}
               className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-200 focus:bg-gray-100 focus:text-black focus:outline-none dark:border-neutral-600 dark:bg-neutral-800/20 dark:text-gray-100 dark:hover:bg-neutral-700/40 dark:hover:text-white dark:focus:bg-neutral-700 dark:focus:text-white dark:focus:ring-1 dark:focus:ring-offset-1"
             >
               <span className="mr-2 inline-block">

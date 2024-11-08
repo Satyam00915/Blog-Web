@@ -1,43 +1,10 @@
+import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { supabase } from "../../Supabase/Supabase";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const navigate = useNavigate();
-  useEffect(() => {
-    const checkSession = async () => {
-      const {
-        data: { session },
-        error,
-      } = await supabase.auth.getSession();
-      if (error) {
-        console.error("Error fetching session:", error);
-      } else if (session) {
-        console.log("User is signed in:", session);
-        setIsSignedIn(true);
-      } else {
-        console.log("User is not signed in");
-      }
-    };
-
-    checkSession();
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "SIGNED_IN") {
-        console.log("User signed in:", session);
-      } else if (event === "SIGNED_OUT") {
-        console.log("User signed out");
-      }
-    });
-
-    return () => {
-      subscription?.unsubscribe();
-    };
-  }, []);
 
   return (
     <section className="bg-white text-gray-900 transition-colors duration-300 dark:bg-black  dark:text-white">
@@ -83,7 +50,9 @@ const Hero = () => {
 
         <button
           onClick={() => {
-            !isSignedIn ? toast.error("Please SignUp!") : navigate("/dashboard");
+            !isSignedIn
+              ? toast.error("Please SignUp!")
+              : navigate("/dashboard");
           }}
           className="rounded-full bg-orange-500 px-8 py-3 text-lg font-medium text-white"
         >
