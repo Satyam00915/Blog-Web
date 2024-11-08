@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const UserSchema = z.lazy(() =>
+export const UserSchema: z.ZodType<any> = z.lazy(() =>
   z.object({
     fullName: z.string().min(1),
     email: z.string().email(),
@@ -16,12 +16,14 @@ export const UserSchema = z.lazy(() =>
   })
 );
 
+export type UserType = z.infer<typeof UserSchema>;
+
 export const CommentSchema = z.object({
   content: z.string().min(1),
   createdAt: z.date().optional(),
 });
 
-export const BlogSchema = z.lazy(() =>
+export const BlogSchema: z.ZodType<any> = z.lazy(() =>
   z.object({
     title: z.string().min(1),
     content: z.string().min(1),
